@@ -101,4 +101,14 @@ export class LLMToolAgent<
     });
     this.log("Cleared conversation history");
   }
+
+  /**
+   * Complete the conversation and self-destruct.
+   * Call this when the LLM interaction is finished.
+   */
+  @callable()
+  async complete(): Promise<void> {
+    this.log("Completing conversation and self-destructing");
+    await this.selfDestruct();
+  }
 }

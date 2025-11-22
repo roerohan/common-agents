@@ -153,13 +153,13 @@ export abstract class BaseAgent<
 
   /**
    * Helper method for ephemeral agents to self-destruct.
-   * Calls cleanup() and then resets state.
+   * Calls cleanup() and then destroys the agent (removes all state and scheduled tasks).
    * Only use this for ephemeral agents - permanent agents should never call this.
    */
   protected async selfDestruct(): Promise<void> {
+    this.log("Self-destructing agent", "info");
     await this.cleanup();
-    // Note: state.reset() would be called here if available in the API
-    // This is a placeholder for the self-destruction mechanism
+    await this.destroy();
   }
 
   /**

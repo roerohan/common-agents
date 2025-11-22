@@ -56,7 +56,9 @@ export class PipelineStageAgent<
         processedCount: this.state.processedCount + 1,
       });
 
-      this.log("Stage processing completed");
+      this.log("Stage processing completed, self-destructing");
+      await this.selfDestruct();
+
       return output;
     } catch (error) {
       this.setState({
@@ -65,6 +67,8 @@ export class PipelineStageAgent<
       });
 
       this.log(`Stage processing failed: ${error}`, "error");
+      await this.selfDestruct();
+
       throw error;
     }
   }

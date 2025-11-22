@@ -108,6 +108,9 @@ export class TaskProcessorAgent<
         progress,
       });
 
+      this.log("Task completed successfully, self-destructing");
+      await this.selfDestruct();
+
       return {
         taskId: task.id,
         success: true,
@@ -124,6 +127,9 @@ export class TaskProcessorAgent<
         ...this.state,
         progress,
       });
+
+      this.log("Task failed, self-destructing");
+      await this.selfDestruct();
 
       return {
         taskId: task.id,
