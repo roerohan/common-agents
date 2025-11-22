@@ -95,7 +95,7 @@ export class EmailWorker extends WorkerAgent<
     const coordinator = (await getAgentByName(
       this.env.EMAIL_COORDINATOR,
       "default"
-    )) as unknown as EmailCoordinator;
+    ));
     await coordinator.submitResult(this.getWorkerId(), result);
 
     this.log(
@@ -182,7 +182,7 @@ export class EmailFleetManager extends FleetManagerAgent<
   EmailSummary
 > {
   protected async getWorkerInstance(workerId: string) {
-    return (await getAgentByName(this.env.EMAIL_WORKER, workerId)) as unknown as EmailWorker;
+    return await getAgentByName(this.env.EMAIL_WORKER, workerId);
   }
 }
 
