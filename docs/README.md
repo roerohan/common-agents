@@ -6,22 +6,30 @@ This directory contains detailed documentation for each agent type in the Common
 
 ## Why Delegate to Different Agent Types?
 
-In complex systems, attempting to handle everything with a single agent quickly becomes unmanageable. Just as a hospital doesn't assign all tasks to one person, your application shouldn't rely on one monolithic agent to handle coordination, task execution, routing, scheduling, and data storage.
+Think about how a company operates. You don't hire one person to do everything - writing code, managing finances, handling customer support, and making strategic decisions. Instead, you have specialized teams:
 
-**The key insight: Different responsibilities require different lifecycles and capabilities.**
+- **Engineering teams** build and maintain the product
+- **Finance teams** manage budgets and track expenses
+- **Customer success teams** handle support tickets
+- **Product managers** coordinate between teams and prioritize work
+- **DevOps teams** maintain infrastructure and deployments
 
-- **Coordination tasks** need persistent state to aggregate results over time
-- **Task execution** should be isolated and ephemeral to prevent resource leaks
-- **Routing logic** needs to maintain rules and configuration persistently
-- **Worker pools** must spawn and manage short-lived workers dynamically
-- **Scheduled operations** require durable alarms that survive restarts
+Each team has clear responsibilities, specialized expertise, and well-defined interfaces for communicating with other teams. An engineer doesn't need to know accounting principles. A finance manager doesn't need to understand database optimization. This separation allows each team to focus on what they do best, while the company as a whole accomplishes complex objectives.
+
+**The same principle applies here: Different responsibilities require different lifecycles and capabilities.**
+
+- **Coordination tasks** need persistent state to aggregate results over time (like a project manager tracking deliverables)
+- **Task execution** should be isolated and ephemeral to prevent resource leaks (like contractors hired for specific projects)
+- **Routing logic** needs to maintain rules and configuration persistently (like a receptionist directing calls based on organizational structure)
+- **Worker pools** must spawn and manage short-lived workers dynamically (like a staffing agency managing temporary workers)
+- **Scheduled operations** require durable alarms that survive restarts (like automated recurring reports)
 
 By delegating to specialized agent types, you get:
-- **Clear separation of concerns** - Each agent has one job and does it well
-- **Appropriate lifecycles** - Permanent agents for state, ephemeral for tasks
-- **Resource efficiency** - Workers self-destruct after completion
-- **Easier debugging** - Problems are isolated to specific agent types
-- **Better scalability** - Scale workers independently from coordinators
+- **Clear separation of concerns** - Each agent has one job and does it well (like specialized teams)
+- **Appropriate lifecycles** - Permanent agents for state, ephemeral for tasks (like full-time staff vs. contractors)
+- **Resource efficiency** - Workers self-destruct after completion (no idle resources consuming budget)
+- **Easier debugging** - Problems are isolated to specific agent types (like issues isolated to specific teams)
+- **Better scalability** - Scale workers independently from coordinators (like hiring more engineers without expanding management)
 
 > **Further Learning**: For a deeper exploration of why putting components in well-defined "boxes" leads to more reliable systems, watch Kenton Varda's talk: [Let's put the AI in lots of little boxes](https://www.youtube.com/watch?v=xUj4HQt_leg) (Cloudflare Connect 2025).
 

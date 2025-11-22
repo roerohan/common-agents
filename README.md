@@ -14,9 +14,17 @@ npm install common-agents
 
 ## Why Multi-Agent Architecture?
 
-In real life, complex organizations don't assign all responsibilities to a single person. Instead, different people are assigned different roles based on their expertise and responsibilities. A surgeon doesn't file insurance paperwork. A security guard doesn't design building blueprints. A chef doesn't handle restaurant finances. Each role has clear boundaries, specific responsibilities, and specialized knowledge.
+Think about how a company operates. You don't hire one person to do everything - writing code, managing finances, handling customer support, and making strategic decisions. Instead, you have specialized teams:
 
-The same principle applies to software architecture. **Instead of one monolithic agent doing all the work and having all the knowledge, we build an army of specialized agents**, each with a specific purpose.
+- **Engineering teams** build and maintain the product
+- **Finance teams** manage budgets and track expenses
+- **Customer success teams** handle support tickets
+- **Product managers** coordinate between teams and prioritize work
+- **DevOps teams** maintain infrastructure and deployments
+
+Each team has clear responsibilities, specialized expertise, and well-defined interfaces for communicating with other teams. An engineer doesn't need to know accounting principles. A finance manager doesn't need to understand database optimization. This separation allows each team to focus on what they do best, while the company as a whole accomplishes complex objectives.
+
+The same principle applies to software architecture. **Instead of one monolithic agent doing all the work and having all the knowledge, we build an ecosystem of specialized agents**, each with a specific purpose. A coordinator agent orchestrates workflows but doesn't process data. A worker agent executes tasks but doesn't manage routing logic. A knowledge base agent stores information but doesn't make scheduling decisions. This separation of concerns leads to more maintainable, scalable, and secure systems.
 
 > **Further Learning**: For a deeper exploration of why putting components in well-defined "boxes" leads to more reliable systems, watch Kenton Varda's talk: [Let's put the AI in lots of little boxes](https://www.youtube.com/watch?v=xUj4HQt_leg) (Cloudflare Connect 2025).
 
