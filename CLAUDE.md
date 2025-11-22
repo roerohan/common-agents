@@ -88,7 +88,7 @@ Ephemeral agents must call `cleanup()` before `state.reset()` to ensure proper r
 ### Communication Patterns
 
 Agents communicate via:
-- **Direct invocation**: `await getAgentByName(agentType, agentId).method(args)`
+- **Direct invocation**: `await getAgentByName(env.AGENT_NAMESPACE, agentId).method(args)`
 - **Message passing**: Ephemeral workers send results to coordinator agents
 - **State sharing**: Reading shared state from other agents
 

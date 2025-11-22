@@ -87,8 +87,8 @@ class DataCoordinator extends CoordinatorAgent {
 }
 
 // 3. Use your agents
-const worker = await getAgentByName(env, 'DATA_WORKER', 'worker-1');
-const coordinator = await getAgentByName(env, 'DATA_COORDINATOR', 'default');
+const worker = await getAgentByName(env.DATA_WORKER, 'worker-1');
+const coordinator = await getAgentByName(env.DATA_COORDINATOR, 'default');
 
 // Worker processes task and reports to coordinator
 await worker.executeTask(task);

@@ -228,7 +228,7 @@ async executeTask(task: Task): Promise<TaskResult> {
 ### Direct Invocation
 
 ```typescript
-const targetAgent = await getAgentByName(env, 'TARGET_AGENT', 'instance-id');
+const targetAgent = await getAgentByName(env.TARGET_AGENT, 'instance-id');
 const result = await targetAgent.someMethod(args);
 ```
 
@@ -241,7 +241,7 @@ const result = await targetAgent.someMethod(args);
 
 ```typescript
 // Worker reports to coordinator
-const coordinator = await getAgentByName(env, 'COORDINATOR', 'default');
+const coordinator = await getAgentByName(env.COORDINATOR, 'default');
 await coordinator.submitResult(this.getWorkerId(), result);
 ```
 
@@ -254,7 +254,7 @@ await coordinator.submitResult(this.getWorkerId(), result);
 
 ```typescript
 // Producer
-const queue = await getAgentByName(env, 'QUEUE', 'default');
+const queue = await getAgentByName(env.QUEUE, 'default');
 await queue.enqueue(task, priority);
 
 // Consumer
@@ -326,7 +326,7 @@ Each agent operates in its own isolated context:
 ```typescript
 // Agent A cannot directly access Agent B's state
 // Communication only through defined methods
-const agentB = await getAgentByName(env, 'AGENT_B', 'instance');
+const agentB = await getAgentByName(env.AGENT_B, 'instance');
 const result = await agentB.publicMethod(); // OK
 // agentB.state.data = ... // Not accessible
 ```
