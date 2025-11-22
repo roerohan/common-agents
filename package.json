@@ -1,9 +1,9 @@
 {
   "name": "common-agents",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A reusable multi-agent framework built on top of the Cloudflare Agents SDK",
   "license": "MIT",
-  "author": "",
+  "author": "Rohan Mukherjee <me@roerohan.com> (https://roerohan.com)",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
