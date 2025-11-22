@@ -2,8 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/common-agents.svg)](https://www.npmjs.com/package/common-agents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Beta](https://img.shields.io/badge/status-beta-orange)
 
 A production-ready multi-agent framework built on top of the [Cloudflare Agents SDK](https://github.com/cloudflare/agents). Available on [npm](https://www.npmjs.com/package/common-agents) as `common-agents`.
+
+> **⚠️ Beta Release**: This framework is under active development. APIs may change, and we welcome contributions, bug reports, and feedback!
 
 ```bash
 npm install common-agents
