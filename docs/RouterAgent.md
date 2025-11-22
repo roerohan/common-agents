@@ -214,8 +214,7 @@ protected async executeRoute(
 ): Promise<unknown> {
   // Get target agent instance
   const agent = await getAgentByName(
-    this.env,
-    rule.targetAgent,
+    this.env[rule.targetAgent],
     'default'
   );
 
@@ -289,8 +288,7 @@ class APIRouter extends RouterAgent<Env, RouterAgentState> {
     try {
       // Get target agent
       const agent = await getAgentByName(
-        this.env,
-        rule.targetAgent,
+        this.env[rule.targetAgent],
         'default'
       );
 
@@ -321,7 +319,7 @@ class APIRouter extends RouterAgent<Env, RouterAgentState> {
 
 ```typescript
 // 1. Initialize router
-const router = await getAgentByName(env, 'ROUTER', 'main');
+const router = await getAgentByName(env.ROUTER, 'main');
 
 // 2. Route incoming requests
 const request: RouteRequest = {
@@ -360,7 +358,7 @@ await router.setRuleEnabled('analytics', false); // Disable analytics temporaril
 // API Gateway handler
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const router = await getAgentByName(env, 'ROUTER', 'main');
+    const router = await getAgentByName(env.ROUTER, 'main');
 
     // Convert HTTP request to RouteRequest
     const routeRequest: RouteRequest = {
@@ -404,8 +402,7 @@ class LoadBalancingRouter extends RouterAgent<Env, RouterAgentState> {
     this.log(`Load balancing to instance: ${instance}`);
 
     const agent = await getAgentByName(
-      this.env,
-      rule.targetAgent,
+      this.env[rule.targetAgent],
       instance
     );
 

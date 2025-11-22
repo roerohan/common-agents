@@ -381,7 +381,7 @@ class DocumentKB extends KnowledgeBaseAgent<
 }
 
 // Usage
-const kb = await getAgentByName(env, 'DOCUMENT_KB', 'main');
+const kb = await getAgentByName(env.DOCUMENT_KB, 'main');
 
 // Add documents
 await kb.addDocument(
@@ -412,7 +412,7 @@ const guides = await kb.searchByType('guide', 'authentication');
 
 ```typescript
 // 1. Initialize knowledge base
-const kb = await getAgentByName(env, 'KNOWLEDGE_BASE', 'main');
+const kb = await getAgentByName(env.KNOWLEDGE_BASE, 'main');
 
 // 2. Store various types of data
 // Store configuration

@@ -256,12 +256,12 @@ class DataCoordinator extends CoordinatorAgent<
 
 ```typescript
 // 1. Create coordinator
-const coordinator = await getAgentByName(env, 'COORDINATOR', 'default');
+const coordinator = await getAgentByName(env.COORDINATOR, 'default');
 
 // 2. Workers submit results as they complete
 class DataWorker extends WorkerAgent {
   protected async reportResult(result: TaskResult<DataProcessingResult>): Promise<void> {
-    const coordinator = await getAgentByName(this.env, 'COORDINATOR', 'default');
+    const coordinator = await getAgentByName(this.env.COORDINATOR, 'default');
     await coordinator.submitResult(this.getWorkerId(), result);
   }
 }
@@ -295,13 +295,13 @@ class DataFleetManager extends FleetManagerAgent {
   }
 
   protected async getWorkerInstance(workerId: string) {
-    return await getAgentByName(this.env, 'DATA_WORKER', workerId);
+    return await getAgentByName(this.env.DATA_WORKER, workerId);
   }
 }
 
 // Workflow
-const fleetManager = await getAgentByName(env, 'FLEET_MANAGER', 'default');
-const coordinator = await getAgentByName(env, 'COORDINATOR', 'default');
+const fleetManager = await getAgentByName(env.FLEET_MANAGER, 'default');
+const coordinator = await getAgentByName(env.COORDINATOR, 'default');
 
 // Submit batch
 const batchId = await fleetManager.submitBatch(tasks);

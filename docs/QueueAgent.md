@@ -286,7 +286,7 @@ class EmailQueue extends QueueAgent<Env, QueueAgentState, EmailTask> {
 
 ```typescript
 // 1. Get queue instance
-const queue = await getAgentByName(env, 'EMAIL_QUEUE', 'main');
+const queue = await getAgentByName(env.EMAIL_QUEUE, 'main');
 
 // 2. Enqueue items with priorities
 await queue.enqueueEmail(
@@ -351,7 +351,7 @@ class QueueWorker {
     this.isRunning = true;
 
     while (this.isRunning) {
-      const queue = await getAgentByName(env, queueName, 'main');
+      const queue = await getAgentByName(env[queueName], 'main');
       const item = await queue.dequeueItem();
 
       if (item) {
@@ -479,7 +479,7 @@ class TaskQueue extends QueueAgent<Env, QueueAgentState, Task> {
 }
 
 // Usage
-const queue = await getAgentByName(env, 'TASK_QUEUE', 'main');
+const queue = await getAgentByName(env.TASK_QUEUE, 'main');
 
 await queue.enqueueCritical({ type: 'security-alert', data: {...} });
 await queue.enqueueHigh({ type: 'user-request', data: {...} });
@@ -559,7 +559,7 @@ class ScheduledQueueProcessor {
   }
 
   async setup(env: Env): Promise<void> {
-    const scheduler = await getAgentByName(env, this.schedulerName, 'main');
+    const scheduler = await getAgentByName(env[this.schedulerName], 'main');
 
     // Schedule queue processing every minute
     await scheduler.scheduleRecurringTask(

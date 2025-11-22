@@ -426,7 +426,7 @@ class ServiceMonitor extends WatcherAgent<Env, WatcherAgentState> {
 
 ```typescript
 // 1. Get watcher instance
-const watcher = await getAgentByName(env, 'SERVICE_MONITOR', 'main');
+const watcher = await getAgentByName(env.SERVICE_MONITOR, 'main');
 
 // 2. Add watches for different resources
 // Watch website uptime
@@ -520,7 +520,7 @@ class FileWatcher extends WatcherAgent<Env, WatcherAgentState> {
 }
 
 // Usage
-const watcher = await getAgentByName(env, 'FILE_WATCHER', 'main');
+const watcher = await getAgentByName(env.FILE_WATCHER, 'main');
 
 await watcher.watchFile('configs/app.json', 30000);
 await watcher.watchFile('data/export.csv', 60000);

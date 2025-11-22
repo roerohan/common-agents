@@ -364,7 +364,7 @@ Always confirm before processing refunds.`;
 
 ```typescript
 // 1. Initialize agent
-const agent = await getAgentByName(env, 'CUSTOMER_SERVICE_AGENT', 'main');
+const agent = await getAgentByName(env.CUSTOMER_SERVICE_AGENT, 'main');
 
 // 2. Handle customer query
 const response = await agent.executePrompt(
@@ -445,7 +445,7 @@ class RAGAgent extends LLMToolAgent<Env, LLMToolAgentState> {
     context?: unknown
   ): Promise<LLMResponse> {
     // 1. Retrieve relevant context from knowledge base
-    const kb = await getAgentByName(this.env, 'KNOWLEDGE_BASE', 'main');
+    const kb = await getAgentByName(this.env.KNOWLEDGE_BASE, 'main');
     const relevantDocs = await kb.search(prompt, { limit: 3 });
 
     // 2. Build context from retrieved documents
@@ -528,16 +528,14 @@ class OrchestratorAgent extends LLMToolAgent<Env, LLMToolAgentState> {
     switch (name) {
       case 'analyze_data':
         const analyticsAgent = await getAgentByName(
-          this.env,
-          'ANALYTICS_AGENT',
+          this.env.ANALYTICS_AGENT,
           'main'
         );
         return analyticsAgent.analyze(args.data, args.analysisType);
 
       case 'generate_report':
         const reportAgent = await getAgentByName(
-          this.env,
-          'REPORT_AGENT',
+          this.env.REPORT_AGENT,
           'main'
         );
         return reportAgent.generateReport(args.reportType, args.data);

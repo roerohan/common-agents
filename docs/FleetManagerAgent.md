@@ -190,7 +190,7 @@ class ImageFleetManager extends FleetManagerAgent<
   ProcessedImage
 > {
   protected async getWorkerInstance(workerId: string): Promise<ImageWorker> {
-    return await getAgentByName(this.env, 'IMAGE_WORKER', workerId);
+    return await getAgentByName(this.env.IMAGE_WORKER, workerId);
   }
 }
 ```
@@ -253,7 +253,7 @@ class DataFleetManager extends FleetManagerAgent<
   }
 
   protected async getWorkerInstance(workerId: string) {
-    return await getAgentByName(this.env, 'DATA_WORKER', workerId);
+    return await getAgentByName(this.env.DATA_WORKER, workerId);
   }
 
   // Optional: Custom error handling
@@ -287,7 +287,7 @@ class DataFleetManager extends FleetManagerAgent<
 
 ```typescript
 // 1. Get fleet manager instance
-const fleetManager = await getAgentByName(env, 'FLEET_MANAGER', 'default');
+const fleetManager = await getAgentByName(env.FLEET_MANAGER, 'default');
 
 // 2. Prepare tasks
 const tasks: Task<DataTask>[] = [
@@ -343,13 +343,13 @@ Fleet Manager + Workers + Coordinator pattern:
 // Workers report to coordinator
 class DataWorker extends WorkerAgent {
   protected async reportResult(result: TaskResult<DataResult>): Promise<void> {
-    const coordinator = await getAgentByName(this.env, 'COORDINATOR', 'default');
+    const coordinator = await getAgentByName(this.env.COORDINATOR, 'default');
     await coordinator.submitResult(this.getWorkerId(), result);
   }
 }
 
 // Query coordinator for aggregated analytics
-const coordinator = await getAgentByName(env, 'COORDINATOR', 'default');
+const coordinator = await getAgentByName(env.COORDINATOR, 'default');
 const summary = await coordinator.getSummary();
 console.log(`
   Total Results: ${summary.totalResults}

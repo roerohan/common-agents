@@ -394,18 +394,15 @@ interface OrderSummary {
 ```typescript
 // 1. Create pipeline stages
 const validationStage = await getAgentByName(
-  env,
-  'ORDER_VALIDATION_STAGE',
+  env.ORDER_VALIDATION_STAGE,
   'main'
 );
 const enrichmentStage = await getAgentByName(
-  env,
-  'ORDER_ENRICHMENT_STAGE',
+  env.ORDER_ENRICHMENT_STAGE,
   'main'
 );
 const aggregationStage = await getAgentByName(
-  env,
-  'ORDER_AGGREGATION_STAGE',
+  env.ORDER_AGGREGATION_STAGE,
   'main'
 );
 

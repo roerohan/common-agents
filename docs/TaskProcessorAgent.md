@@ -405,7 +405,7 @@ class VideoProcessor extends TaskProcessorAgent<
 
 ```typescript
 // 1. Spawn processor
-const processor = await getAgentByName(env, 'VIDEO_PROCESSOR', generateId());
+const processor = await getAgentByName(env.VIDEO_PROCESSOR, generateId());
 
 // 2. Define complex task
 const task: ComplexTask<VideoProcessingTask> = {
@@ -489,7 +489,7 @@ class ResumableProcessor extends TaskProcessorAgent<
 }
 
 // Usage with pause/resume
-const processor = await getAgentByName(env, 'PROCESSOR', 'task-1');
+const processor = await getAgentByName(env.PROCESSOR, 'task-1');
 
 // Start task
 processor.processTask(task);
@@ -519,7 +519,7 @@ class ProgressMonitor {
     callback: (progress: TaskProgress) => void
   ): Promise<void> {
     const interval = setInterval(async () => {
-      const processor = await getAgentByName(env, 'PROCESSOR', processorId);
+      const processor = await getAgentByName(env.PROCESSOR, processorId);
       const progress = await processor.getProgress();
 
       if (progress) {

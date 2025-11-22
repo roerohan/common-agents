@@ -137,7 +137,7 @@ protected async reportResult(result: TaskResult<ProcessedImage>): Promise<void> 
   await super.reportResult(result);
 
   // Send to coordinator
-  const coordinator = await getAgentByName(this.env, 'COORDINATOR', 'main');
+  const coordinator = await getAgentByName(this.env.COORDINATOR, 'main');
   await coordinator.submitResult(this.getWorkerId(), result);
 
   // Send webhook notification
@@ -207,7 +207,7 @@ class DataWorker extends WorkerAgent<
 
   protected async reportResult(result: TaskResult<DataResult>): Promise<void> {
     // Report to coordinator
-    const coordinator = await getAgentByName(this.env, 'COORDINATOR', 'default');
+    const coordinator = await getAgentByName(this.env.COORDINATOR, 'default');
     await coordinator.submitResult(this.getWorkerId(), result);
   }
 
@@ -236,12 +236,12 @@ WorkerAgent is typically spawned by a FleetManagerAgent to process tasks in para
 // Fleet Manager spawns workers
 class DataFleetManager extends FleetManagerAgent {
   protected async getWorkerInstance(workerId: string): Promise<DataWorker> {
-    return await getAgentByName(this.env, 'DATA_WORKER', workerId);
+    return await getAgentByName(this.env.DATA_WORKER, workerId);
   }
 }
 
 // Usage
-const fleetManager = await getAgentByName(env, 'FLEET_MANAGER', 'default');
+const fleetManager = await getAgentByName(env.FLEET_MANAGER, 'default');
 
 const tasks: Task<DataProcessingTask>[] = [
   { id: 'task-1', type: 'process', data: { sourceUrl: 'https://...', transformations: ['clean'] } },

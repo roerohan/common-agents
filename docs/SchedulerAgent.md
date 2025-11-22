@@ -356,7 +356,7 @@ class TaskScheduler extends SchedulerAgent<Env, SchedulerAgentState> {
 
 ```typescript
 // 1. Get scheduler instance
-const scheduler = await getAgentByName(env, 'SCHEDULER', 'main');
+const scheduler = await getAgentByName(env.SCHEDULER, 'main');
 
 // 2. Schedule various tasks
 // One-time task
