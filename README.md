@@ -18,6 +18,8 @@ In real life, complex organizations don't assign all responsibilities to a singl
 
 The same principle applies to software architecture. **Instead of one monolithic agent doing all the work and having all the knowledge, we build an army of specialized agents**, each with a specific purpose.
 
+> **Further Learning**: For a deeper exploration of why putting components in well-defined "boxes" leads to more reliable systems, watch Kenton Varda's talk: [Let's put the AI in lots of little boxes](https://www.youtube.com/watch?v=xUj4HQt_leg) (Cloudflare Connect 2025).
+
 ### Key Benefits of Separation
 
 **🔒 Security & Isolation**

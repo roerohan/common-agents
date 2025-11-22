@@ -1,6 +1,29 @@
-# Agent Documentation
+# Introduction
+
+`common-agents` is a production-ready multi-agent framework built on top of the [Cloudflare Agents SDK](https://github.com/cloudflare/agents). Available on [npm](https://www.npmjs.com/package/common-agents) as `common-agents`.
 
 This directory contains detailed documentation for each agent type in the Common Agents Framework.
+
+## Why Delegate to Different Agent Types?
+
+In complex systems, attempting to handle everything with a single agent quickly becomes unmanageable. Just as a hospital doesn't assign all tasks to one person, your application shouldn't rely on one monolithic agent to handle coordination, task execution, routing, scheduling, and data storage.
+
+**The key insight: Different responsibilities require different lifecycles and capabilities.**
+
+- **Coordination tasks** need persistent state to aggregate results over time
+- **Task execution** should be isolated and ephemeral to prevent resource leaks
+- **Routing logic** needs to maintain rules and configuration persistently
+- **Worker pools** must spawn and manage short-lived workers dynamically
+- **Scheduled operations** require durable alarms that survive restarts
+
+By delegating to specialized agent types, you get:
+- **Clear separation of concerns** - Each agent has one job and does it well
+- **Appropriate lifecycles** - Permanent agents for state, ephemeral for tasks
+- **Resource efficiency** - Workers self-destruct after completion
+- **Easier debugging** - Problems are isolated to specific agent types
+- **Better scalability** - Scale workers independently from coordinators
+
+> **Further Learning**: For a deeper exploration of why putting components in well-defined "boxes" leads to more reliable systems, watch Kenton Varda's talk: [Let's put the AI in lots of little boxes](https://www.youtube.com/watch?v=xUj4HQt_leg) (Cloudflare Connect 2025).
 
 ## Configuration & Setup
 
