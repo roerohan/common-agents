@@ -195,10 +195,15 @@ See [FRAMEWORK.md](./FRAMEWORK.md) for comprehensive architectural documentation
 ## Features
 
 ✅ **Minimal Boilerplate** - Extend base classes instead of reimplementing infrastructure
+
 ✅ **Type-Safe** - Full TypeScript support with comprehensive type definitions
+
 ✅ **Production-Ready** - Error handling, retries, metrics, and lifecycle management built-in
+
 ✅ **Well-Documented** - Detailed docs for every agent type with examples
+
 ✅ **Battle-Tested Patterns** - Proven patterns for common multi-agent workflows
+
 ✅ **Cloudflare Native** - Built specifically for Cloudflare Workers and Durable Objects
 
 ## Contributing
@@ -217,7 +222,7 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 ## Links
 
 - **npm Package**: [common-agents](https://www.npmjs.com/package/common-agents)
-- **Documentation**: [docs/](./docs/)
+- **Documentation**: [projects.roerohan.com/common-agents/](https://projects.roerohan.com/common-agents/)
 - **Examples**: [examples/](./examples/)
 - **Framework Guide**: [FRAMEWORK.md](./FRAMEWORK.md)
 - **Cloudflare Agents SDK**: [GitHub](https://github.com/cloudflare/agents) | [Docs](https://developers.cloudflare.com/agents/)
