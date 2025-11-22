@@ -1,0 +1,46 @@
+{
+  "name": "common-agents",
+  "version": "1.0.0",
+  "description": "A reusable multi-agent framework built on top of the Cloudflare Agents SDK",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "FRAMEWORK.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "cloudflare",
+    "agents",
+    "multi-agent",
+    "agent-framework",
+    "cloudflare-workers",
+    "durable-objects"
+  ],
+  "dependencies": {
+    "agents": "*"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
