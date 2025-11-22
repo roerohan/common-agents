@@ -76,13 +76,19 @@ Ephemeral agents are created for specific tasks and self-destruct after completi
 ## Quick Start
 
 ```typescript
-import { WorkerAgent, CoordinatorAgent, getAgentByName } from 'common-agents';
+import { WorkerAgent, CoordinatorAgent, getAgentByName, type TaskResult } from 'common-agents';
 
 // 1. Define a worker that processes tasks
 class DataWorker extends WorkerAgent {
   protected async processTask(task) {
     const result = await this.processData(task.data);
     return result;
+  }
+
+  protected async reportResult(result: TaskResult) {
+    // Report to coordinator
+    const coordinator = await getAgentByName(this.env.DATA_COORDINATOR, 'default');
+    await coordinator.submitResult(this.getWorkerId(), result);
   }
 }
 
@@ -93,12 +99,12 @@ class DataCoordinator extends CoordinatorAgent {
 
 // 3. Use your agents
 const worker = await getAgentByName(env.DATA_WORKER, 'worker-1');
-const coordinator = await getAgentByName(env.DATA_COORDINATOR, 'default');
 
-// Worker processes task and reports to coordinator
+// Worker processes task and automatically reports to coordinator
 await worker.executeTask(task);
 
-// Query aggregated results
+// Query aggregated results from coordinator
+const coordinator = await getAgentByName(env.DATA_COORDINATOR, 'default');
 const summary = await coordinator.getSummary();
 ```
 
