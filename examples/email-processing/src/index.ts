@@ -25,6 +25,9 @@ import {
   type RouteRequest,
   type WorkerAgentState,
   type AgentNamespace,
+  type FleetManagerAgentState,
+  type CoordinatorAgentState,
+  type RouterAgentState,
 } from "common-agents";
 import { callable } from "agents";
 
@@ -56,6 +59,11 @@ interface EmailSummary {
   priority: "high" | "medium" | "low";
 }
 
+// API request body type
+interface EmailBatchRequest {
+  emails: Array<Task<EmailData>>;
+}
+
 // ============================================================================
 // Email Worker Agent (Ephemeral)
 // ============================================================================
@@ -68,6 +76,11 @@ export class EmailWorker extends WorkerAgent<
 > {
   protected async processTask(task: Task<EmailData>): Promise<EmailSummary> {
     const email = task.data;
+
+    // Validate email data
+    if (!email.from || !email.to || !email.subject || !email.body) {
+      throw new Error("Invalid email data: missing required fields");
+    }
 
     // Simulate email processing
     const wordCount = email.body.split(/\s+/).length;
@@ -177,7 +190,7 @@ export class EmailWorker extends WorkerAgent<
 
 export class EmailFleetManager extends FleetManagerAgent<
   Env,
-  any,
+  FleetManagerAgentState,
   EmailData,
   EmailSummary
 > {
@@ -192,10 +205,11 @@ export class EmailFleetManager extends FleetManagerAgent<
 
 export class EmailCoordinator extends CoordinatorAgent<
   Env,
-  any,
+  CoordinatorAgentState,
   EmailSummary
 > {
   // Add custom method to get emails by priority
+  @callable()
   async getEmailsByPriority(
     priority: "high" | "medium" | "low"
   ): Promise<EmailSummary[]> {
@@ -204,9 +218,8 @@ export class EmailCoordinator extends CoordinatorAgent<
   }
 
   // Add custom method to get sentiment breakdown
-  async getSentimentBreakdown(): Promise<
-    Record<string, number>
-  > {
+  @callable()
+  async getSentimentBreakdown(): Promise<Record<string, number>> {
     const results = await this.getSuccessfulResults();
     const breakdown = { positive: 0, neutral: 0, negative: 0 };
 
@@ -222,9 +235,9 @@ export class EmailCoordinator extends CoordinatorAgent<
 // Email Router (Permanent)
 // ============================================================================
 
-export class EmailRouterAgent extends RouterAgent<Env, any> {
+export class EmailRouterAgent extends RouterAgent<Env, RouterAgentState> {
   @callable()
-  async handleRoute(request: RouteRequest): Promise<any> {
+  async handleRoute(request: RouteRequest): Promise<unknown> {
     const routeResult = await this.route(request);
     if (!routeResult.matched || !routeResult.rule) {
       throw new Error("No matching route found");
@@ -273,15 +286,28 @@ export class EmailRouterAgent extends RouterAgent<Env, any> {
   protected override async executeRoute(
     request: RouteRequest,
     rule: any
-  ): Promise<any> {
+  ): Promise<unknown> {
     this.log(`Routing ${request.path} to ${rule.targetAgent}`);
 
     const agentNamespace = this.env[rule.targetAgent as keyof Env] as any;
     const agent = (await getAgentByName(agentNamespace, "default")) as any;
 
+    // Transform request body based on target method
+    let methodArg = request.body;
+
+    // Fix: Extract emails array from request body for submitBatch
+    if (rule.targetMethod === "submitBatch" && request.body) {
+      const batchRequest = request.body as EmailBatchRequest;
+      if (batchRequest.emails && Array.isArray(batchRequest.emails)) {
+        methodArg = batchRequest.emails;
+      } else {
+        throw new Error("Invalid request body: expected {emails: Array<Task<EmailData>>}");
+      }
+    }
+
     // Call the target method
     if (rule.targetMethod && typeof agent[rule.targetMethod] === "function") {
-      return await agent[rule.targetMethod](request.body);
+      return await agent[rule.targetMethod](methodArg);
     }
 
     return { routed: true, targetAgent: rule.targetAgent };
